@@ -1,0 +1,256 @@
+:root {
+  --background-color: #121113;
+  --primary-color: #007da3;
+  --secondary-color: #62636a;
+  --accent-color: #f5f3a3;
+  --text-color: #ffffff;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-family: "Overlock", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  color: var(--text-color);
+}
+body {
+  min-height: 100vh;
+  padding: 10px;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+h1 {
+  margin-top: 100px;
+  margin-bottom: 20px;
+  font-size: 3rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--accent-color);
+}
+.wrapper {
+  width: 700px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+#todo-input {
+  box-sizing: border-box;
+  padding: 12px 20px;
+  width: 100%;
+  background: none;
+  border: 2px solid var(--secondary-color);
+  border-radius: 1000px;
+  font: inherit;
+  color: var(--text-color);
+  caret-color: var(--accent-color);
+}
+#todo-input:focus {
+  outline: none;
+}
+form {
+  position: relative;
+}
+#add-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  background-color: var(--accent-color);
+  height: 100%;
+  padding: 0 30px;
+  border: none;
+  border-radius: 1000px;
+  font: inherit;
+  font-weight: 600;
+  color: var(--background-color);
+  cursor: pointer;
+  transition: ease-out 300ms;
+  overflow: hidden;
+}
+
+#add-button:hover {
+  color: white;
+}
+.todo {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 0 16px;
+  background-color: var(--primary-color);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+}
+.todo .todo-text {
+  padding: 15px;
+  padding-right: 0;
+  flex-grow: 1;
+  overflow-wrap: break-word;
+}
+.todo.expanded .expand-button {
+  top: auto;
+  bottom: -30px;
+}
+.remove-button {
+  padding: 3px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.remove-button svg {
+  transition: 300ms ease;
+}
+.remove-button:hover svg {
+  transform: scale(1.2);
+  fill: red;
+}
+.custom-checkbox {
+  border: 2px solid var(--accent-color);
+  border-radius: 50%;
+  min-height: 20px;
+  min-width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  transition: 400ms ease;
+  cursor: pointer;
+}
+input[type="checkbox"]:checked ~ .custom-checkbox {
+  background-color: var(--accent-color);
+}
+input[type="checkbox"]:checked ~ .custom-checkbox svg {
+  fill: var(--primary-color);
+}
+input[type="checkbox"]:checked ~ .todo-text {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  color: var(--secondary-color);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+.button-container {
+  max-height: min-content;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  right: 0;
+  margin-left: auto;
+}
+.flag-button,
+.expand-button,
+.collapse-button {
+  width: 29px;
+  height: 18px;
+  padding: 3px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.expand-button svg,
+.collapse-button svg {
+  transition: 300ms ease;
+}
+
+.expand-button:hover svg,
+.collapse-button:hover svg {
+  transform: scale(1.2);
+  fill: var(--accent-color);
+}
+
+.flag-button svg {
+  transition: 300ms ease;
+}
+.flag-button.flagged svg {
+  fill: var(--accent-color);
+}
+.flag-button:hover svg {
+  transform: scale(1.2);
+  fill: var(--accent-color);
+}
+
+.detail-hidden {
+  padding: 10px;
+  background-color: var(--secondary-color);
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-color);
+
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  overflow: hidden;
+  transition: max-height 300ms ease, opacity 300ms ease, visibility 300ms ease;
+}
+textarea {
+  width: 100%;
+  min-height: 50px;
+  resize: none;
+  font: inherit;
+  padding: 10px;
+  border: 1px solid var(--secondary-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+.todo.expanded + .detail-hidden {
+  max-height: 150px;
+  opacity: 1;
+  visibility: visible;
+}
+
+.detail-hidden.expanded /*textarea*/ {
+  width: 100%;
+  min-height: 50px;
+  background: none;
+  border: 1px solid var(--primary-color);
+  color: var(--text-color);
+  padding: 8px;
+  resize: none;
+
+  max-height: 500px;
+  opacity: 1;
+  visibility: visible;
+  height: auto;
+}
+@media (max-width: 500px) {
+  html {
+    font-size: 12pt;
+  }
+  #add-button {
+    position: unset;
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+    height: auto;
+  }
+  h1 {
+    margin-top: 50px;
+    font-size: 15vw;
+  }
+}
