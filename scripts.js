@@ -174,3 +174,12 @@ function removeTodoItem(todoIndex) {
   saveTodos();
   updateTodoList();
 }
+function getTodos() {
+  const todos = localStorage.getItem("todos");
+  try {
+    return todos ? JSON.parse(todos) : [];
+  } catch (error) {
+    console.error("Error parsing todos from localstorage:", error);
+    return [];
+  }
+}
